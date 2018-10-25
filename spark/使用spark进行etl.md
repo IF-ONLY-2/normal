@@ -116,4 +116,29 @@ spark-submit
 --files # 
 ```
 * 
-* 
+### 参数列表
+ 参数名 |  参数说明 
+-|-|
+|--master | master 的地址，提交任务到哪里执行，例如 spark://host:port, yarn, local |  
+--deploy-mode |在本地 (client) 启动 driver 或在 cluster 上启动，默认是 client
+--class |应用程序的主类，仅针对 java 或 scala 应用
+--name |应用程序的名称
+--jars |用逗号分隔的本地 jar 包，设置后，这些 jar 将包含在 driver 和 executor 的 classpath 下
+--packages |包含在driver 和executor 的 classpath 中的 jar 的 maven 坐标
+--exclude-packages |为了避免冲突 而指定不包含的 package
+--repositories |远程 repository
+--conf PROP=VALUE | 指定 spark 配置属性的值，例如 -conf spark.executor.extraJavaOptions="-XX:MaxPermSize=256m"
+--properties-file |加载的配置文件，默认为 conf/spark-defaults.conf
+--driver-memory | Driver内存，默认 1G
+--driver-java-options | 传给 driver 的额外的 Java 选项
+--driver-library-path | 传给 driver 的额外的库路径
+--driver-class-path    | 传给 driver 的额外的类路径
+--driver-cores | Driver 的核数，默认是1。在 yarn 或者 standalone 下使用
+--executor-memory | 每个 executor 的内存，默认是1G
+--total-executor-cores | 所有 executor 总共的核数。仅仅在 mesos 或者 standalone 下使用
+--num-executors | 启动的 executor 数量。默认为2。在 yarn 下使用
+--executor-core | 每个 executor 的核数。在yarn或者standalone下使用
+
+### 远程提交到emr集群遇到的问题
+* 两个节点环境 PYSPARK_PYTHON 这个spark python的运行环境不一致，一个3.6一个2.7 导致在3.6环境下打的包执行任务出错
+* Phoenix版本与 hbase集群上的Phoenix的包不一致导致数据解析出错
